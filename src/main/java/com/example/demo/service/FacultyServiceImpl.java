@@ -34,4 +34,9 @@ public class FacultyServiceImpl implements FacultyService {
     public void deleteFaculty(Integer id) {
         facultyRepository.deleteById(id);
     }
+
+    @Override
+    public FacultyModel getFacultyById(Integer id) {
+        return facultyRepository.findById(id).orElse(null);
+    }
 }

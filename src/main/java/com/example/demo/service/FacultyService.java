@@ -10,4 +10,5 @@ public interface FacultyService {
     public FacultyModel createFaculty(FacultyModel student);
     public FacultyModel updateFaculty(FacultyModel student);
     public void deleteFaculty(Integer id);
+    public FacultyModel getFacultyById(Integer id);
 }
