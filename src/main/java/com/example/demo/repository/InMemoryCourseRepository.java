@@ -37,19 +37,19 @@ public class InMemoryCourseRepository {
 
         }
 
-        if (faculty != null && !faculty.isEmpty()) {
-            students = students.stream()
-                    .filter(s -> s.getFaculty().equals(faculty))
-                    .collect(Collectors.toList());
-            System.out.println("After faculty filter, list size: " + students.size() + faculty);
-
-        }
-
-        if (course != null && !course.isEmpty()) {
-            students = students.stream()
-                    .filter(s -> s.getCourse().equals(course))
-                    .collect(Collectors.toList());
-        }
+//        if (faculty != null && !faculty.isEmpty()) {
+//            students = students.stream()
+//                    .filter(s -> s.getFaculty().equals(faculty))
+//                    .collect(Collectors.toList());
+//            System.out.println("After faculty filter, list size: " + students.size() + faculty);
+//
+//        }
+//
+//        if (course != null && !course.isEmpty()) {
+//            students = students.stream()
+//                    .filter(s -> s.getCourse().equals(course))
+//                    .collect(Collectors.toList());
+//        }
         System.out.println("faculty: 1 " + faculty);
         System.out.println("year: 1 " + year);
 

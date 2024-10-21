@@ -28,7 +28,7 @@ public List<StudentModel> getStudentsPage(int page, int size, String groupName, 
     List<StudentModel> students = new ArrayList<>();
     if (search != null && !search.isEmpty()) {
         students = STUDENTS.stream()
-                .filter(s -> s.getName().contains(search) || s.getSecondname().contains(search))
+                .filter(s -> s.getName().contains(search) || s.getSecondName().contains(search))
                 .collect(Collectors.toList());
     } else {
         students = STUDENTS;
@@ -46,11 +46,11 @@ public List<StudentModel> getStudentsPage(int page, int size, String groupName, 
                 .collect(Collectors.toList());
     }
 
-    if (course != null && !course.isEmpty()) {
-        students = students.stream()
-                .filter(s -> s.getCourse().equals(course))
-                .collect(Collectors.toList());
-    }
+//    if (course != null && !course.isEmpty()) {
+//        students = students.stream()
+//                .filter(s -> s.getCourse().equals(course))
+//                .collect(Collectors.toList());
+//    }
 
 
     int startIndex = (page - 1) * size;

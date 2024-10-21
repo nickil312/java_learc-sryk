@@ -1,37 +1,59 @@
 package com.example.demo.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+import java.util.List;
+
+//public class FacultyModel {
+//    private int Id;
+//    private String Name;
+//    private boolean Exist;
+@Entity
+@Table(name = "faculties")
 public class FacultyModel {
-    private int Id;
-    private String Name;
-    private boolean Exist;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @NotBlank(message = "Name is required")
+    @Size(max = 20, message = "Name must not exceed 20 characters")
+    private String name;
+
+    private boolean exist;
+
+    @OneToMany(mappedBy = "faculty")
+    private List<StudentModel> students;
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public boolean isExist() {
-        return Exist;
+        return exist;
     }
 
     public void setExist(boolean exist) {
-        Exist = exist;
+        this.exist = exist;
     }
 
-    public FacultyModel(int id, String name, boolean exist) {
-        Id = id;
-        Name = name;
-        Exist = exist;
+    public List<StudentModel> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<StudentModel> students) {
+        this.students = students;
     }
 }

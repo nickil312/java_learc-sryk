@@ -1,77 +1,95 @@
 package com.example.demo.model;
 
-public class CourseModel {
-    private int Id;
-    private String Name;
-    private String Description;
-    private String Faculty;
-    private String Year;
-    private String Course;
-    private boolean Exist;
 
-    public CourseModel(int id, String name, String description, String faculty, String year, String course, boolean exist) {
-        Id = id;
-        Name = name;
-        Description = description;
-        Faculty = faculty;
-        Year = year;
-        Course = course;
-        Exist = exist;
-    }
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+import java.util.List;
+
+@Entity
+@Table(name = "courses")
+public class CourseModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @NotBlank(message = "Name is required")
+    @Size(max = 20, message = "Name must not exceed 100 characters")
+    private String name;
+
+    @NotBlank(message = "Description is required")
+    @Size(max = 100, message = "Description must not exceed 100 characters")
+    private String description;
+    @NotBlank(message = "Year is required")
+    @Size(max = 4, message = "Year must not exceed 100 characters")
+    private String year;
+
+    private boolean exist;
+
+    @ManyToOne
+    @JoinColumn(name = "course_number_id")
+    private CourseNumberModel courseNumber;
+
+    @ManyToMany
+    @JoinTable (name="student_course",
+            joinColumns=@JoinColumn (name="course_id"),
+            inverseJoinColumns=@JoinColumn(name="student_id"))
+    private List<StudentModel> students;
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
-    }
-
-    public String getFaculty() {
-        return Faculty;
-    }
-
-    public void setFaculty(String faculty) {
-        Faculty = faculty;
+        this.description = description;
     }
 
     public String getYear() {
-        return Year;
+        return year;
     }
 
     public void setYear(String year) {
-        Year = year;
-    }
-
-    public String getCourse() {
-        return Course;
-    }
-
-    public void setCourse(String course) {
-        Course = course;
+        this.year = year;
     }
 
     public boolean isExist() {
-        return Exist;
+        return exist;
     }
 
     public void setExist(boolean exist) {
-        Exist = exist;
+        this.exist = exist;
+    }
+
+    public CourseNumberModel getCourseNumber() {
+        return courseNumber;
+    }
+
+    public void setCourseNumber(CourseNumberModel courseNumber) {
+        this.courseNumber = courseNumber;
+    }
+
+    public List<StudentModel> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<StudentModel> students) {
+        this.students = students;
     }
 }

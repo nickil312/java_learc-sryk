@@ -6,69 +6,75 @@
 </head>
 <body>
 
-<form>
-    <label for="search">Search:</label>
-    <input type="text" id="search" name="search" />
-    <label for="year">Год :</label>
-    <select id="year2" name="year" >
-        <option value="">Select Год</option>
-        <option value="Год 2022">2022</option>
-        <option value="Год 2023">2023</option>
-        <option value="Год 2024">2024</option>
-    </select>
+<!--<form>-->
+<!--    <label for="search">Search:</label>-->
+<!--    <input type="text" id="search" name="search" />-->
+<!--    <label for="year">Год :</label>-->
+<!--    <select id="year2" name="year" >-->
+<!--        <option value="">Select Год</option>-->
+<!--        <option value="Год 2022">2022</option>-->
+<!--        <option value="Год 2023">2023</option>-->
+<!--        <option value="Год 2024">2024</option>-->
+<!--    </select>-->
 
-    <label for="faculty">Faculty:</label>
-    <select id="faculty2" name="faculty" >
-        <option value="">Select Faculty</option>
-        <option value="Факультет науки">Факультет науки</option>
-        <option value="Факультет инжениии">Факультет инжениии</option>
-        <option value="Факультет искуства">Факультет искуства</option>
-    </select>
+<!--    <label for="faculty">Faculty:</label>-->
+<!--    <select id="faculty2" name="faculty" >-->
+<!--        <option value="">Select Faculty</option>-->
+<!--        <option value="Факультет науки">Факультет науки</option>-->
+<!--        <option value="Факультет инжениии">Факультет инжениии</option>-->
+<!--        <option value="Факультет искуства">Факультет искуства</option>-->
+<!--    </select>-->
 
-    <label for="course">Course:</label>
-    <select id="course2" name="course" >
-        <option value="">Select Course</option>
-        <option value="Course 1">Course 1</option>
-        <option value="Course 2">Course 2</option>
-        <option value="Course 3">Course 3</option>
-    </select>
+<!--    <label for="course">Course:</label>-->
+<!--    <select id="course2" name="course" >-->
+<!--        <option value="">Select Course</option>-->
+<!--        <option value="Course 1">Course 1</option>-->
+<!--        <option value="Course 2">Course 2</option>-->
+<!--        <option value="Course 3">Course 3</option>-->
+<!--    </select>-->
 
-    <button type="submit">Search</button>
-</form>
+<!--    <button type="submit">Search</button>-->
+<!--</form>-->
 
 
 
 <h1>Список курсов</h1>
-<form action="/course/add" method="post">
-    <input type="text" name="name" placeholder="название курса" required>
+<!--<form action="/course/add" method="post" th:object="${course}">-->
+<!--    <input type="text" name="name" placeholder="название предмета" required>-->
+<!--    <input type="text" name="description" placeholder="описание" required>-->
+<!--    <input type="text" name="year" placeholder="Год предмета" required>-->
+<!--    <input type="checkbox" name="exist" value="true" required> Exists-->
+<!--    <label for="course_number_id">Курс:</label>-->
+<!--    <select th:field="*{courseNumber}" id="course_number_id">-->
+<!--        <option value="" disabled selected>Выберите курс</option>-->
+<!--        <option th:each="courseNumber : ${courseNumber}"-->
+<!--                th:value="${courseNumber.id}"-->
+<!--                th:text="${courseNumber.name}"></option>-->
+<!--    </select>-->
+<!--    <button type="submit">Добавить курс</button>-->
+<!--</form>-->
+<form action="/course/add" method="post" th:object="${course}">
+    <input type="text" name="name" placeholder="название предмета" required>
     <input type="text" name="description" placeholder="описание" required>
+    <input type="text" name="year" placeholder="Год предмета" required>
     <input type="checkbox" name="exist" value="true" required> Exists
-    <label for="year">Group Name:</label>
-    <select id="year" name="year" required>
-        <option value="">Select Год</option>
-        <option value="Год 2022">2022</option>
-        <option value="Год 2023">2023</option>
-        <option value="Год 2024">2024</option>
+
+    <label for="course_number_id">Курс:</label>
+    <select th:field="*{courseNumber}" id="course_number_id" required>
+        <option value="" disabled selected>Выберите курс</option>
+        <option th:each="courseNumber : ${courseNumber}"
+                th:value="${courseNumber.id}"
+                th:text="${courseNumber.name}"></option>
     </select>
 
-    <label for="faculty">Faculty:</label>
-    <select id="faculty" name="faculty" required>
-        <option value="">Select Faculty</option>
-        <option value="Факультет науки">Факультет науки</option>
-        <option value="Факультет инжениии">Факультет инжениии</option>
-        <option value="Факультет искуства">Факультет искуства</option>
-    </select>
+    <label>Студенты:</label>
+    <div th:each="student : ${students}">
+        <input type="checkbox" th:value="${student.id}" th:name="'studentIds'" />
+        <span th:text="${student.name}"></span> <!-- Assuming StudentModel has a 'name' property -->
+    </div>
 
-    <label for="course">Предмет для какого курса:</label>
-    <select id="course" name="course" required>
-        <option value="">Select Course</option>
-        <option value="Course 1">Course 1</option>
-        <option value="Course 2">Course 2</option>
-        <option value="Course 3">Course 3</option>
-    </select>
-    <button type="submit">Добавить студента</button>
+    <button type="submit">Добавить курс</button>
 </form>
-
 <h2>Все курсы:</h2>
 <!--<ul>-->
 <!--    <th:block th:each="student : ${students}">-->
@@ -113,76 +119,118 @@
 <!--    </th:block>-->
 <!--</ul>-->
 
-    <ul>
-        <th:block th:each="student : ${students}">
-            <li>
-                <span th:text="${student.name} + ' ' + ${student.description} + ' ' + ${student.year} + ' ' + ${student.faculty} + ' ' + ${student.course} + ' ' + ${student.exist} "></span>
-                <form action="/course/update" method="post" style="display:inline;">
-                    <input type="hidden" name="id" th:value="${student.id}"/>
-                    <input type="text" name="name" placeholder="Название" required/>
-                    <input type="text" name="description" placeholder="описание" required/>
-                    <!--                <input type="checkbox" name="exist" th:checked="${student.exist}" placeholder="exist" >-->
-                    <!--                 -->    <input type="checkbox" name="exist" value="true" required> Exists
+<!--    <ul>-->
+<!--        <th:block th:each="student : ${courses}">-->
+<!--            <li>-->
+<!--                <span th:text="${student.name} + ' ' + ${student.description} + ' ' + ${student.year} + ' ' + ${student.exist} + ' ' + ${student.courseNumber}"></span>-->
+<!--                <form action="/course/update" method="post" style="display:inline;">-->
+<!--                    <input type="hidden" name="id" th:value="${student.id}"/>-->
+<!--                    <input type="text" name="name" placeholder="Название" required/>-->
+<!--                    <input type="text" name="description" placeholder="описание" required/>-->
+<!--                    <input type="text" name="year" placeholder="Год предмета" required>-->
+<!--                    &lt;!&ndash;                <input type="checkbox" name="exist" th:checked="${student.exist}" placeholder="exist" >&ndash;&gt;-->
+<!--                    &lt;!&ndash;                 &ndash;&gt;    <input type="checkbox" name="exist" value="true" required> Exists-->
 
-                    <select id="year1" name="year" required>
-                        <option value="">Select Год</option>
-                        <option value="Год 2022">2022</option>
-                        <option value="Год 2023">2023</option>
-                        <option value="Год 2024">2024</option>
-                    </select>
-                    <select id="faculty1" name="faculty" required>
-                        <option value="">Select Faculty</option>
-                        <option value="Факультет науки">Факультет науки</option>
-                        <option value="Факультет инжениии">Факультет инжениии</option>
-                        <option value="Факультет искуства">Факультет искуства</option>
-                    </select>
 
-                    <select id="course1" name="course" required>
-                        <option value="">Select Course</option>
-                        <option value="Course 1">Course 1</option>
-                        <option value="Course 2">Course 2</option>
-                        <option value="Course 3">Course 3</option>
-                    </select>
-                    <button type="submit">Обновить</button>
-                </form>
-                <form action="/course/delete" method="post" style="display:inline;">
-                    <input type="hidden" name="id" th:value="${student.id}"/>
-                    <button type="submit">Удалить</button>
-                </form>
-                <input type="checkbox" name="studentIds" th:value="${student.id}">
-            </li>
-        </th:block>
-    </ul>
+<!--                    <label for="course_number_id">Курс:</label>-->
+
+<!--                    <select th:field="*{courseNumber}" name="courseNumber.id" id="course_number_id1" required>-->
+<!--                        <option value="" disabled selected>Выберите курс</option>-->
+<!--                        <option th:each="courseNumber : ${courseNumber}"-->
+<!--                                th:value="${courseNumber.id}"-->
+<!--                                th:text="${courseNumber.name}"></option>-->
+<!--                    </select>-->
+
+<!--                    <label>Студенты:</label>-->
+<!--                    <div th:each="student : ${students}">-->
+<!--                        <input type="checkbox" th:value="${student.id}" th:name="'studentIds'" />-->
+<!--                        <span th:text="${student.name}"></span> &lt;!&ndash; Assuming StudentModel has a 'name' property &ndash;&gt;-->
+<!--                    </div>-->
+<!--                    <button type="submit">Обновить</button>-->
+<!--                </form>-->
+<!--                <form action="/course/delete" method="post" style="display:inline;">-->
+<!--                    <input type="hidden" name="id" th:value="${student.id}"/>-->
+<!--                    <button type="submit">Удалить</button>-->
+<!--                </form>-->
+<!--                <input type="checkbox" name="studentIds" th:value="${student.id}">-->
+<!--            </li>-->
+<!--        </th:block>-->
+<!--    </ul>-->
+<ul>
+    <th:block th:each="course : ${courses}">
+        <li>
+            <span th:text="${course.name} + ' ' + ${course.description} + ' ' + ${course.year} + ' ' + ${course.exist} + ' ' + ${(course.courseNumber != null ? course.courseNumber.name : 'No Course Number')}"></span>
+            <form action="/course/update" method="post" style="display:inline;" th:object="${course}">
+                <input type="hidden" name="id" th:value="${course.id}"/>
+                <input type="text" name="name" placeholder="Название" th:value="${course.name}" required/>
+<!--                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+                <input type="text" name="description" placeholder="описание" th:value="${course.description}" required/>
+<!--                <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>-->
+                <input type="text" name="year" placeholder="Год предмета" th:value="${course.year}" required/>
+<!--                <span th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></span>-->
+                <input type="checkbox" name="exist" th:checked="${course.exist}" /> Exists
+
+                <label for="course_number_id">Курс:</label>-->
+                <select th:field="*{courseNumber}"  th:name="${courseNumber}" id="course_number_id1" required>
+                    <option value="" disabled selected>Выберите курс</option>
+                    <option th:each="courseNumber : ${courseNumber}"
+                            th:value="${courseNumber.id}"
+                            th:text="${courseNumber.name}"></option>
+                </select>
+
+<!--                <label for="course_number_id1">Курс:</label>-->
+<!--                <select th:field="*{courseNumber}" name="courseNumber.id" id="course_number_id1" required>-->
+<!--                    <option value="" disabled selected>Выберите курс</option>-->
+<!--                    <option th:each="courseNumber : ${courseNumbers}"-->
+<!--                            th:value="${courseNumber.id}"-->
+<!--                            th:text="${courseNumber.name}"-->
+<!--                            th:selected="${course.courseNumber != null && course.courseNumber.id == courseNumber.id}"></option>-->
+<!--                </select>-->
+                <label>Студенты:</label>
+                <div th:each="student : ${students}">
+                    <input type="checkbox" th:value="${student.id}" th:name="'studentIds'"
+                           th:checked="${#lists.contains(course.students, student)}" />
+                    <span th:text="${student.name}"></span>
+                </div>
+                <button type="submit">Обновить</button>
+            </form>
+            <form action="/course/delete" method="post" style="display:inline;">
+                <input type="hidden" name="id" th:value="${course.id}"/>
+                <button type="submit">Удалить</button>
+            </form>
+        </li>
+    </th:block>
+</ul>
 <h1>Мультиудаление</h1>
-<form action="/course/multidelete" method="post" style="margin-top: 20px">
-    <ul>
-        <th:block th:each="student : ${students}">
-            <li>
-                <span th:text="${student.id} + ' ' + ${student.name} + ' ' + ${student.description} + ' ' + ${student.year} + ' ' + ${student.faculty} + ' ' + ${student.course} + ' ' + ${student.exist} "></span>
-                <input type="checkbox" name="studentIds" th:value="${student.id}">
-            </li>
-        </th:block>
-    </ul>
-    <input type="submit" name="deleteType" value="Delete Logical">Удалить логически
-    <input type="submit" name="deleteType" value="Delete Physical">Удалить физически
-</form>
+<!--<form action="/course/multidelete" method="post" style="margin-top: 20px">-->
+<!--    <ul>-->
+<!--        <th:block th:each="student : ${students}">-->
+<!--            <li>-->
+<!--                <span th:text="${student.id} + ' ' + ${student.name} + ' ' + ${student.description} + ' ' + ${student.year} + ' ' + ${student.faculty} + ' ' + ${student.course} + ' ' + ${student.exist} "></span>-->
+<!--                <input type="checkbox" name="studentIds" th:value="${student.id}">-->
+<!--            </li>-->
+<!--        </th:block>-->
+<!--    </ul>-->
+<!--    <input type="submit" name="deleteType" value="Delete Logical">Удалить логически-->
+<!--    <input type="submit" name="deleteType" value="Delete Physical">Удалить физически-->
+<!--</form>-->
 
 <!-- Pagination -->
-<div>
-    <ul>
-        <li th:if="${currentPage > 1}">
-            <a th:href="@{/course(page=${currentPage - 1})}">Previous</a>
-        </li>
-        <li th:each="i : ${#numbers.sequence(1, totalPages)}">
-            <a th:href="@{/course(page=${i})}" th:class="${currentPage == i} ? 'active' : ''">
-                [[${i}]]
-            </a>
-        </li>
-        <li th:if="${currentPage < totalPages}">
-            <a th:href="@{/course(page=${currentPage + 1})}">Next</a>
-        </li>
-    </ul>
-</div>
+<!--<div>-->
+<!--    <ul>-->
+<!--        <li th:if="${currentPage > 1}">-->
+<!--            <a th:href="@{/course(page=${currentPage - 1})}">Previous</a>-->
+<!--        </li>-->
+<!--        <li th:each="i : ${#numbers.sequence(1, totalPages)}">-->
+<!--            <a th:href="@{/course(page=${i})}" th:class="${currentPage == i} ? 'active' : ''">-->
+<!--                [[${i}]]-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li th:if="${currentPage < totalPages}">-->
+<!--            <a th:href="@{/course(page=${currentPage + 1})}">Next</a>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</div>-->
 
 </body>
 </html>

@@ -45,44 +45,74 @@
 </head>
 <body>
 
-<form>
-    <label for="search">Search:</label>
-    <input type="text" id="search" name="search" />
-    <label for="groupName">Group Name:</label>
-    <select id="groupName2" name="groupName" >
-        <option value="">Select Group</option>
-        <option value="Group A">Group A</option>
-        <option value="Group B">Group B</option>
-        <option value="Group C">Group C</option>
-    </select>
+<!--<form>-->
+<!--    <label for="search">Search:</label>-->
+<!--    <input type="text" id="search" name="search" />-->
+<!--    <label for="groupName">Group Name:</label>-->
+<!--    <select id="groupName2" name="groupName" >-->
+<!--        <option value="">Select Group</option>-->
+<!--        <option value="Group A">Group A</option>-->
+<!--        <option value="Group B">Group B</option>-->
+<!--        <option value="Group C">Group C</option>-->
+<!--    </select>-->
 
-    <label for="faculty">Faculty:</label>
-    <select id="faculty2" name="faculty" >
-        <option value="">Select Faculty</option>
-        <option value="Факультет науки">Факультет науки</option>
-        <option value="Факультет инжениии">Факультет инжениии</option>
-        <option value="Факультет искуства">Факультет искуства</option>
-    </select>
+<!--    <label for="faculty">Faculty:</label>-->
+<!--    <select id="faculty2" name="faculty" >-->
+<!--        <option value="">Select Faculty</option>-->
+<!--        <option value="Факультет науки">Факультет науки</option>-->
+<!--        <option value="Факультет инжениии">Факультет инжениии</option>-->
+<!--        <option value="Факультет искуства">Факультет искуства</option>-->
+<!--    </select>-->
 
-    <label for="course">Course:</label>
-    <select id="course2" name="course" >
-        <option value="">Select Course</option>
-        <option value="Course 1">Course 1</option>
-        <option value="Course 2">Course 2</option>
-        <option value="Course 3">Course 3</option>
-    </select>
-    <label for="groupName">Group Name:</label>
+<!--    <label for="course">Course:</label>-->
+<!--    <select id="course2" name="course" >-->
+<!--        <option value="">Select Course</option>-->
+<!--        <option value="Course 1">Course 1</option>-->
+<!--        <option value="Course 2">Course 2</option>-->
+<!--        <option value="Course 3">Course 3</option>-->
+<!--    </select>-->
+<!--    <label for="groupName">Group Name:</label>-->
 
-    <button type="submit">Search</button>
-</form>
+<!--    <button type="submit">Search</button>-->
+<!--</form>-->
 
 
 
 <h1>Список студентов</h1>
-<form action="/students/add" method="post">
+<!--<form action="/students/add" method="post">-->
+<!--    <input type="text" name="name" placeholder="Имя" required>-->
+<!--    <input type="text" name="secondname" placeholder="Фамилия" required>-->
+<!--    <input type="checkbox" name="exist" value="true" required> Exists-->
+<!--    <label for="groupName">Group Name:</label>-->
+<!--    <select id="groupName" name="groupName" required>-->
+<!--        <option value="">Select Group</option>-->
+<!--        <option value="Group A">Group A</option>-->
+<!--        <option value="Group B">Group B</option>-->
+<!--        <option value="Group C">Group C</option>-->
+<!--    </select>-->
+
+<!--    <label for="faculty">Faculty:</label>-->
+<!--    <select id="faculty" name="faculty" required>-->
+<!--        <option value="">Select Faculty</option>-->
+<!--        <option value="Факультет науки">Факультет науки</option>-->
+<!--        <option value="Факультет инжениии">Факультет инжениии</option>-->
+<!--        <option value="Факультет искуства">Факультет искуства</option>-->
+<!--    </select>-->
+
+<!--    <label for="course">Course:</label>-->
+<!--    <select id="course" name="course" required>-->
+<!--        <option value="">Select Course</option>-->
+<!--        <option value="Course 1">Course 1</option>-->
+<!--        <option value="Course 2">Course 2</option>-->
+<!--        <option value="Course 3">Course 3</option>-->
+<!--    </select>-->
+<!--    <button type="submit">Добавить студента</button>-->
+<!--</form>-->
+<form action="/students/add" method="post" th:object="${student}">
     <input type="text" name="name" placeholder="Имя" required>
-    <input type="text" name="secondname" placeholder="Фамилия" required>
+    <input type="text" name="secondName" placeholder="Фамилия" required>
     <input type="checkbox" name="exist" value="true" required> Exists
+
     <label for="groupName">Group Name:</label>
     <select id="groupName" name="groupName" required>
         <option value="">Select Group</option>
@@ -91,21 +121,29 @@
         <option value="Group C">Group C</option>
     </select>
 
-    <label for="faculty">Faculty:</label>
-    <select id="faculty" name="faculty" required>
+    <label for="facul1ty1">Faculty:</label>
+    <select id="facul1ty1" name="faculty.id" required>
         <option value="">Select Faculty</option>
-        <option value="Факультет науки">Факультет науки</option>
-        <option value="Факультет инжениии">Факультет инжениии</option>
-        <option value="Факультет искуства">Факультет искуства</option>
+        <option th:each="faculty : ${faculties}"
+                th:value="${faculty.id}"
+                th:text="${faculty.name}"></option>
     </select>
 
-    <label for="course">Course:</label>
-    <select id="course" name="course" required>
+    <label for="cour1se">Course:</label>
+    <select id="cour1se" name="courses"  multiple>
         <option value="">Select Course</option>
-        <option value="Course 1">Course 1</option>
-        <option value="Course 2">Course 2</option>
-        <option value="Course 3">Course 3</option>
+        <option th:each="course : ${courses}"
+                th:value="${course.id}"
+                th:text="${course.name}"></option>
     </select>
+<!--    <label for="profile">profile:</label>-->
+<!--    <select id="profile1" name="profiles" >-->
+<!--        <option value="">Select profile</option>-->
+<!--        <option th:each="profile : ${profiles}"-->
+<!--                th:value="${profile.id}"-->
+<!--                th:text="${profile.address} + ${profile.birthDate}"></option>-->
+<!--    </select>-->
+
     <button type="submit">Добавить студента</button>
 </form>
 
@@ -156,14 +194,14 @@
     <ul>
         <th:block th:each="student : ${students}">
             <li>
-                <span th:text="${student.name} + ' ' + ${student.secondname} + ' ' + ${student.groupName} + ' ' + ${student.faculty} + ' ' + ${student.course} + ' ' + ${student.exist} "></span>
-                <form action="/students/update" method="post" style="display:inline;">
+                <span th:text="${student.name} + ' ' + ${student.secondName} + ' ' + ${student.groupName} + ' ' + ${student.faculty} + ' ' + ${student.courses} + ' ' + ${student.exist} "></span>
+                <form action="/students/update" method="post" style="display:inline;" th:object="${student}">
                     <input type="hidden" name="id" th:value="${student.id}"/>
                     <input type="text" name="name" placeholder="Имя" required/>
-                    <input type="text" name="secondname" placeholder="группа" required/>
+                    <input type="text" name="secondName" placeholder="группа" required/>
                     <!--                <input type="checkbox" name="exist" th:checked="${student.exist}" placeholder="exist" >-->
                     <!--                 -->    <input type="checkbox" name="exist" value="true" required> Exists
-
+                    <label for="groupName">Group Name:</label>
                     <select id="groupName1" name="groupName" required>
                         <option value="">Select Group</option>
                         <option value="Group A">Group A</option>
@@ -171,19 +209,28 @@
                         <option value="Group C">Group C</option>
                     </select>
 
-                    <select id="faculty1" name="faculty" required>
+                    <label for="faculty1">Faculty:</label>
+                    <select id="faculty1" name="faculty.id" required>
                         <option value="">Select Faculty</option>
-                        <option value="Факультет науки">Факультет науки</option>
-                        <option value="Факультет инжениии">Факультет инжениии</option>
-                        <option value="Факультет искуства">Факультет искуства</option>
+                        <option th:each="faculty : ${faculties}"
+                                th:value="${faculty.id}"
+                                th:text="${faculty.name}"></option>
                     </select>
 
-                    <select id="course1" name="course" required>
+                    <label for="course">Course:</label>
+                    <select id="course" name="courses"  multiple>
                         <option value="">Select Course</option>
-                        <option value="Course 1">Course 1</option>
-                        <option value="Course 2">Course 2</option>
-                        <option value="Course 3">Course 3</option>
+                        <option th:each="course : ${courses}"
+                                th:value="${course.id}"
+                                th:text="${course.name}"></option>
                     </select>
+<!--                    <label for="profile">profile:</label>-->
+<!--                    <select id="profile" name="profiles"  >-->
+<!--                        <option value="">Select profile</option>-->
+<!--                        <option th:each="profile : ${profiles}"-->
+<!--                                th:value="${profile.id}"-->
+<!--                                th:text="${profile.address} + ${profile.birthDate}"></option>-->
+<!--                    </select>-->
                     <button type="submit">Обновить</button>
                 </form>
                 <form action="/students/delete" method="post" style="display:inline;">
@@ -194,36 +241,36 @@
             </li>
         </th:block>
     </ul>
-<h1>Мультиудаление</h1>
-<form action="/students/multidelete" method="post" style="margin-top: 20px">
-    <ul>
-        <th:block th:each="student : ${students}">
-            <li>
-                <span th:text="${student.id} + ' ' + ${student.name} + ' ' + ${student.secondname} + ' ' + ${student.groupName} + ' ' + ${student.faculty} + ' ' + ${student.course} + ' ' + ${student.exist} "></span>
-                <input type="checkbox" name="studentIds" th:value="${student.id}">
-            </li>
-        </th:block>
-    </ul>
-    <input type="submit" name="deleteType" value="Delete Logical">Удалить логически
-    <input type="submit" name="deleteType" value="Delete Physical">Удалить физически
-</form>
+<!--<h1>Мультиудаление</h1>-->
+<!--<form action="/students/multidelete" method="post" style="margin-top: 20px">-->
+<!--    <ul>-->
+<!--        <th:block th:each="student : ${students}">-->
+<!--            <li>-->
+<!--                <span th:text="${student.id} + ' ' + ${student.name} + ' ' + ${student.secondname} + ' ' + ${student.groupName} + ' ' + ${student.faculty} + ' ' + ${student.course} + ' ' + ${student.exist} "></span>-->
+<!--                <input type="checkbox" name="studentIds" th:value="${student.id}">-->
+<!--            </li>-->
+<!--        </th:block>-->
+<!--    </ul>-->
+<!--    <input type="submit" name="deleteType" value="Delete Logical">Удалить логически-->
+<!--    <input type="submit" name="deleteType" value="Delete Physical">Удалить физически-->
+<!--</form>-->
 
 <!-- Pagination -->
-<div>
-    <ul>
-        <li th:if="${currentPage > 1}">
-            <a th:href="@{/students(page=${currentPage - 1})}">Previous</a>
-        </li>
-        <li th:each="i : ${#numbers.sequence(1, totalPages)}">
-            <a th:href="@{/students(page=${i})}" th:class="${currentPage == i} ? 'active' : ''">
-                [[${i}]]
-            </a>
-        </li>
-        <li th:if="${currentPage < totalPages}">
-            <a th:href="@{/students(page=${currentPage + 1})}">Next</a>
-        </li>
-    </ul>
-</div>
+<!--<div>-->
+<!--    <ul>-->
+<!--        <li th:if="${currentPage > 1}">-->
+<!--            <a th:href="@{/students(page=${currentPage - 1})}">Previous</a>-->
+<!--        </li>-->
+<!--        <li th:each="i : ${#numbers.sequence(1, totalPages)}">-->
+<!--            <a th:href="@{/students(page=${i})}" th:class="${currentPage == i} ? 'active' : ''">-->
+<!--                [[${i}]]-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li th:if="${currentPage < totalPages}">-->
+<!--            <a th:href="@{/students(page=${currentPage + 1})}">Next</a>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</div>-->
 
 </body>
 </html>
