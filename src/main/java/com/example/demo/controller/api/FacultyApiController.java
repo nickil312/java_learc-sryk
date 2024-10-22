@@ -1,7 +1,9 @@
-package com.example.demo.controller;
+package com.example.demo.controller.api;
 
 import com.example.demo.model.FacultyModel;
 import com.example.demo.service.FacultyService;
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,14 +29,29 @@ public class FacultyApiController {
     }
 
     @PatchMapping("/{id}")
-    public FacultyModel updateFaculty(@PathVariable Integer id, @RequestBody FacultyModel facultyModel) {
+    public FacultyModel updateFaculty(@Valid @PathVariable Integer id,
+                                      @RequestBody FacultyModel facultyModel,
+                                      BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult.getAllErrors().get(0).getDefaultMessage());
+            // Return to the form view with error messages
+//            fack 3
+            return null; // Ensure this returns the correct view name
+        }
+
         facultyModel.setId(id);
         return facultyService.updateFaculty(facultyModel);
     }
 
     @PostMapping
-    public FacultyModel createFaculty(@RequestBody FacultyModel faculty) {
+    public FacultyModel createFaculty(@Valid @RequestBody FacultyModel faculty, BindingResult bindingResult) {
 //        System.out.println(faculty);
+        if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult.getAllErrors().get(0).getDefaultMessage());
+            // Return to the form view with error messages
+//            fack 3
+            return null; // Ensure this returns the correct view name
+        }
         return facultyService.createFaculty(faculty);
     }
     @DeleteMapping("/{id}")

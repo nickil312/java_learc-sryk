@@ -16,6 +16,7 @@ public class FacultyModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @NotBlank(message = "Name is required")
     @Size(max = 20, message = "Name must not exceed 20 characters")
     private String name;

@@ -53,8 +53,7 @@ open class SecurityConfig @Autowired constructor(
             authorize
                 .requestMatchers("/regis", "/login").permitAll()
                 .requestMatchers( "/students").hasAnyAuthority("ADMIN")
-//                .requestMatchers( "/profiles").hasRole("USER")
-//                .requestMatchers( "/profiles").hasRole("USER")
+                .requestMatchers("/v1/api/**").permitAll()
                 .anyRequest().authenticated()
         }
             .formLogin { form ->
@@ -82,8 +81,6 @@ open class SecurityConfig @Autowired constructor(
             }
             .csrf { csrf -> csrf.disable() }
             .cors { cors -> cors.disable() }
-
-
         return http.build()
     }
 
