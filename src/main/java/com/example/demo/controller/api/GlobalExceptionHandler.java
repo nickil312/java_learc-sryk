@@ -21,6 +21,11 @@ public class GlobalExceptionHandler {
         List<String> errors = bindingResult.getAllErrors().stream()
                 .map(ObjectError::getDefaultMessage)
                 .toList();
+//        System.out.println(errors);
+//        System.out.println(errors);
+//        System.out.println(errors);
+//        System.out.println(errors);
+//        System.out.println(errors);
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 

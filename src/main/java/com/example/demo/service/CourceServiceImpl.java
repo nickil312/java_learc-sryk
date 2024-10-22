@@ -42,7 +42,7 @@ public class CourceServiceImpl implements CourceService {
 
     @Override
     public CourseModel getCourseById(int id) {
-        return null;
+        return courseRepository.findById(id).orElse(null);
     }
 
     @Override

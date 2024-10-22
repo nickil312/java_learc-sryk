@@ -11,7 +11,7 @@ public interface StudentService {
 
 //    public int getTotalPages(int size, String groupName, String faculty, String course, String search, boolean exist);
 
-    //    public StudentModel getStudentById(int id);
+        public StudentModel getStudentById(int id);
     public List<StudentModel> getStudentsByIds(List<Integer> studentIds);
 
     public StudentModel addStudent(StudentModel studentModel);

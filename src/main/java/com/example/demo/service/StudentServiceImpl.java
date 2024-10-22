@@ -28,6 +28,11 @@ public class StudentServiceImpl  implements StudentService {
         return studentRepository.findAll();
     }
 
+    @Override
+    public StudentModel getStudentById(int id) {
+        return studentRepository.findById(id).orElse(null);
+    }
+
 //    @Override
 //    public List<StudentModel> getStudentsPage(int page,int size, String groupName, String faculty, String course, String search,boolean exist) {
 //        return inMemoryStudentRepository.getStudentsPage(page,size,groupName,faculty,course,search,exist);
