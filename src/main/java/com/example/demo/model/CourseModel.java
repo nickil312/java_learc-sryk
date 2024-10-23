@@ -37,6 +37,18 @@ public class CourseModel {
             inverseJoinColumns=@JoinColumn(name="student_id"))
     private List<StudentModel> students;
 
+    @OneToMany(mappedBy = "course")
+    private List<ScheduleModel> schedules;
+
+
+    public List<ScheduleModel> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<ScheduleModel> schedules) {
+        this.schedules = schedules;
+    }
+
     public int getId() {
         return id;
     }

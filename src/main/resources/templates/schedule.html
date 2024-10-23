@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>schedule</title>
+</head>
+<body>
+
+<!--<form>-->
+<!--    <label for="search">Search:</label>-->
+<!--    <input type="text" id="search" name="search" />-->
+<!--    <label for="year">Год :</label>-->
+<!--    <select id="year2" name="year" >-->
+<!--        <option value="">Select Год</option>-->
+<!--        <option value="Год 2022">2022</option>-->
+<!--        <option value="Год 2023">2023</option>-->
+<!--        <option value="Год 2024">2024</option>-->
+<!--    </select>-->
+
+<!--    <label for="faculty">Faculty:</label>-->
+<!--    <select id="faculty2" name="faculty" >-->
+<!--        <option value="">Select Faculty</option>-->
+<!--        <option value="Факультет науки">Факультет науки</option>-->
+<!--        <option value="Факультет инжениии">Факультет инжениии</option>-->
+<!--        <option value="Факультет искуства">Факультет искуства</option>-->
+<!--    </select>-->
+
+<!--    <label for="course">Course:</label>-->
+<!--    <select id="course2" name="course" >-->
+<!--        <option value="">Select Course</option>-->
+<!--        <option value="Course 1">Course 1</option>-->
+<!--        <option value="Course 2">Course 2</option>-->
+<!--        <option value="Course 3">Course 3</option>-->
+<!--    </select>-->
+
+<!--    <button type="submit">Search</button>-->
+<!--</form>-->
+
+
+
+<h1>Список расписания</h1>
+<!--<form action="/course/add" method="post" th:object="${course}">-->
+<!--    <input type="text" name="name" placeholder="название предмета" required>-->
+<!--    <input type="text" name="description" placeholder="описание" required>-->
+<!--    <input type="text" name="year" placeholder="Год предмета" required>-->
+<!--    <input type="checkbox" name="exist" value="true" required> Exists-->
+<!--    <label for="course_number_id">Курс:</label>-->
+<!--    <select th:field="*{courseNumber}" id="course_number_id">-->
+<!--        <option value="" disabled selected>Выберите курс</option>-->
+<!--        <option th:each="courseNumber : ${courseNumber}"-->
+<!--                th:value="${courseNumber.id}"-->
+<!--                th:text="${courseNumber.name}"></option>-->
+<!--    </select>-->
+<!--    <button type="submit">Добавить курс</button>-->
+<!--</form>-->
+<form action="/schedule/add" method="post" th:object="${schedule}">
+    <input type="text" name="pairNumber" placeholder="Номер пары" required/>
+    <select id="dayOfWeek1" name="dayOfWeek" required>
+        <option value="">Select День недели</option>
+        <option value="Понедельник">Понедельник</option>
+        <option value="Вторник">Вторник</option>
+        <option value="Среда">Среда</option>
+        <option value="Четверг">Четверг</option>
+        <option value="Пятница">Пятница</option>
+        <option value="Суббота">Суббота</option>
+        <option value="Воскресенье">Воскресенье</option>
+    </select>
+    <label for="course_id">Предмет:</label>
+    <select name="course.id" id="course_id" required>
+        <option value="" disabled selected>Выберите предмет</option>
+        <option th:each="course : ${courses}"
+                th:value="${course.id}"
+                th:text="${course.name}"></option>
+    </select>
+
+
+    <button type="submit">Добавить пару в расписание</button>
+</form>
+<h2>Все пары:</h2>
+<!--<ul>-->
+<!--    <th:block th:each="student : ${students}">-->
+<!--        <li>-->
+<!--            <span th:text="${student.name} + ' ' + ${student.secondname} + ' ' + ${student.groupName} + ' ' + ${student.faculty} + ' ' + ${student.course} + ' ' + ${student.exist} "></span>-->
+<!--            <form action="/students/update" method="post" style="display:inline;">-->
+<!--                <input type="hidden" name="id" th:value="${student.id}"/>-->
+<!--                <input type="text" name="name" placeholder="Имя" required/>-->
+<!--                <input type="text" name="secondname" placeholder="группа" required/>-->
+<!--&lt;!&ndash;                <input type="checkbox" name="exist" th:checked="${student.exist}" placeholder="exist" >&ndash;&gt;-->
+<!--&lt;!&ndash;                 &ndash;&gt;    <input type="checkbox" name="exist" value="true" required> Exists-->
+
+<!--                <select id="groupName1" name="groupName" required>-->
+<!--                    <option value="">Select Group</option>-->
+<!--                    <option value="Group A">Group A</option>-->
+<!--                    <option value="Group B">Group B</option>-->
+<!--                    <option value="Group C">Group C</option>-->
+<!--                </select>-->
+
+<!--                <select id="faculty1" name="faculty" required>-->
+<!--                    <option value="">Select Faculty</option>-->
+<!--                    <option value="Факультет науки">Факультет науки</option>-->
+<!--                    <option value="Факультет инжениии">Факультет инжениии</option>-->
+<!--                    <option value="Факультет искуства">Факультет искуства</option>-->
+<!--                </select>-->
+
+<!--                <select id="course1" name="course" required>-->
+<!--                    <option value="">Select Course</option>-->
+<!--                    <option value="Course 1">Course 1</option>-->
+<!--                    <option value="Course 2">Course 2</option>-->
+<!--                    <option value="Course 3">Course 3</option>-->
+<!--                </select>-->
+<!--                <button type="submit">Обновить</button>-->
+<!--            </form>-->
+<!--            <form action="/students/delete" method="post" style="display:inline;">-->
+<!--                <input type="hidden" name="id" th:value="${student.id}"/>-->
+<!--                <button type="submit">Удалить</button>-->
+<!--            </form>-->
+<!--            <input type="checkbox" name="studentIds" value="${student.id}">-->
+
+<!--        </li>-->
+<!--    </th:block>-->
+<!--</ul>-->
+
+<!--    <ul>-->
+<!--        <th:block th:each="student : ${courses}">-->
+<!--            <li>-->
+<!--                <span th:text="${student.name} + ' ' + ${student.description} + ' ' + ${student.year} + ' ' + ${student.exist} + ' ' + ${student.courseNumber}"></span>-->
+<!--                <form action="/course/update" method="post" style="display:inline;">-->
+<!--                    <input type="hidden" name="id" th:value="${student.id}"/>-->
+<!--                    <input type="text" name="name" placeholder="Название" required/>-->
+<!--                    <input type="text" name="description" placeholder="описание" required/>-->
+<!--                    <input type="text" name="year" placeholder="Год предмета" required>-->
+<!--                    &lt;!&ndash;                <input type="checkbox" name="exist" th:checked="${student.exist}" placeholder="exist" >&ndash;&gt;-->
+<!--                    &lt;!&ndash;                 &ndash;&gt;    <input type="checkbox" name="exist" value="true" required> Exists-->
+
+
+<!--                    <label for="course_number_id">Курс:</label>-->
+
+<!--                    <select th:field="*{courseNumber}" name="courseNumber.id" id="course_number_id1" required>-->
+<!--                        <option value="" disabled selected>Выберите курс</option>-->
+<!--                        <option th:each="courseNumber : ${courseNumber}"-->
+<!--                                th:value="${courseNumber.id}"-->
+<!--                                th:text="${courseNumber.name}"></option>-->
+<!--                    </select>-->
+
+<!--                    <label>Студенты:</label>-->
+<!--                    <div th:each="student : ${students}">-->
+<!--                        <input type="checkbox" th:value="${student.id}" th:name="'studentIds'" />-->
+<!--                        <span th:text="${student.name}"></span> &lt;!&ndash; Assuming StudentModel has a 'name' property &ndash;&gt;-->
+<!--                    </div>-->
+<!--                    <button type="submit">Обновить</button>-->
+<!--                </form>-->
+<!--                <form action="/course/delete" method="post" style="display:inline;">-->
+<!--                    <input type="hidden" name="id" th:value="${student.id}"/>-->
+<!--                    <button type="submit">Удалить</button>-->
+<!--                </form>-->
+<!--                <input type="checkbox" name="studentIds" th:value="${student.id}">-->
+<!--            </li>-->
+<!--        </th:block>-->
+<!--    </ul>-->
+<ul>
+    <th:block th:each="schedule : ${schedules}">
+        <li>
+            <span th:text="${schedule.dayOfWeek} + ' ' + ${schedule.pairNumber}  + ' ' + ${(schedule.course != null ? schedule.course.name : 'No Course')}"></span>
+            <form action="/schedule/update" method="post" style="display:inline;" th:object="${schedule}">
+                <input type="hidden" name="id" th:value="${schedule.id}"/>
+                <input type="text" name="pairNumber" placeholder="Номер пары" th:value="${schedule.pairNumber}" required/>
+                <select id="dayOfWeek" name="dayOfWeek" required>
+                    <option value="">Select День недели</option>
+                    <option value="Понедельник">Понедельник</option>
+                    <option value="Вторник">Вторник</option>
+                    <option value="Среда">Среда</option>
+                    <option value="Четверг">Четверг</option>
+                    <option value="Пятница">Пятница</option>
+                    <option value="Суббота">Суббота</option>
+                    <option value="Воскресенье">Воскресенье</option>
+                </select>
+
+
+                <label for="course_id1">Курс:</label>
+                <select name="course.id" id="course_id1" required>
+                    <option value="" disabled selected>Выберите предмет</option>
+                    <option th:each="course : ${courses}"
+                            th:value="${course.id}"
+                            th:text="${course.name}"></option>
+                </select>
+<!--                <select th:field="*{course}"  th:name="${courses}" id="course_id1" required>-->
+<!--                    <option value="" disabled selected>Выберите курс</option>-->
+<!--                    <option th:each="course : ${courses}"-->
+<!--                            th:value="${course.id}"-->
+<!--                            th:text="${course.name}"></option>-->
+<!--                </select>-->
+
+<!--                <label for="course_number_id1">Курс:</label>-->
+<!--                <select th:field="*{courseNumber}" name="courseNumber.id" id="course_number_id1" required>-->
+<!--                    <option value="" disabled selected>Выберите курс</option>-->
+<!--                    <option th:each="courseNumber : ${courseNumbers}"-->
+<!--                            th:value="${courseNumber.id}"-->
+<!--                            th:text="${courseNumber.name}"-->
+<!--                            th:selected="${course.courseNumber != null && course.courseNumber.id == courseNumber.id}"></option>-->
+<!--                </select>-->
+
+                <button type="submit">Обновить</button>
+            </form>
+            <form action="/schedule/delete" method="post" style="display:inline;">
+                <input type="hidden" name="id" th:value="${schedule.id}"/>
+                <button type="submit">Удалить</button>
+            </form>
+        </li>
+    </th:block>
+</ul>
+<h1>Мультиудаление</h1>
+<!--<form action="/course/multidelete" method="post" style="margin-top: 20px">-->
+<!--    <ul>-->
+<!--        <th:block th:each="student : ${students}">-->
+<!--            <li>-->
+<!--                <span th:text="${student.id} + ' ' + ${student.name} + ' ' + ${student.description} + ' ' + ${student.year} + ' ' + ${student.faculty} + ' ' + ${student.course} + ' ' + ${student.exist} "></span>-->
+<!--                <input type="checkbox" name="studentIds" th:value="${student.id}">-->
+<!--            </li>-->
+<!--        </th:block>-->
+<!--    </ul>-->
+<!--    <input type="submit" name="deleteType" value="Delete Logical">Удалить логически-->
+<!--    <input type="submit" name="deleteType" value="Delete Physical">Удалить физически-->
+<!--</form>-->
+
+<!-- Pagination -->
+<!--<div>-->
+<!--    <ul>-->
+<!--        <li th:if="${currentPage > 1}">-->
+<!--            <a th:href="@{/course(page=${currentPage - 1})}">Previous</a>-->
+<!--        </li>-->
+<!--        <li th:each="i : ${#numbers.sequence(1, totalPages)}">-->
+<!--            <a th:href="@{/course(page=${i})}" th:class="${currentPage == i} ? 'active' : ''">-->
+<!--                [[${i}]]-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li th:if="${currentPage < totalPages}">-->
+<!--            <a th:href="@{/course(page=${currentPage + 1})}">Next</a>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</div>-->
+
+</body>
+</html>

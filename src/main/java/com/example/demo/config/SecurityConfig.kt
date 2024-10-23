@@ -54,6 +54,7 @@ open class SecurityConfig @Autowired constructor(
                 .requestMatchers("/regis", "/login").permitAll()
                 .requestMatchers( "/students").hasAnyAuthority("ADMIN")
                 .requestMatchers("/v1/api/**").permitAll()
+                .requestMatchers("/v1/api/students/**").permitAll()
                 .anyRequest().authenticated()
         }
             .formLogin { form ->
