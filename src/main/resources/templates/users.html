@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>users</title>
+</head>
+<body>
+
+<!--<form>-->
+<!--    <label for="search">Search:</label>-->
+<!--    <input type="text" id="search" name="search" />-->
+<!--    <label for="groupName">Group Name:</label>-->
+<!--    <select id="groupName2" name="groupName" >-->
+<!--        <option value="">Select Group</option>-->
+<!--        <option value="Group A">Group A</option>-->
+<!--        <option value="Group B">Group B</option>-->
+<!--        <option value="Group C">Group C</option>-->
+<!--    </select>-->
+
+<!--    <label for="faculty">Faculty:</label>-->
+<!--    <select id="faculty2" name="faculty" >-->
+<!--        <option value="">Select Faculty</option>-->
+<!--        <option value="Факультет науки">Факультет науки</option>-->
+<!--        <option value="Факультет инжениии">Факультет инжениии</option>-->
+<!--        <option value="Факультет искуства">Факультет искуства</option>-->
+<!--    </select>-->
+
+<!--    <label for="course">Course:</label>-->
+<!--    <select id="course2" name="course" >-->
+<!--        <option value="">Select Course</option>-->
+<!--        <option value="Course 1">Course 1</option>-->
+<!--        <option value="Course 2">Course 2</option>-->
+<!--        <option value="Course 3">Course 3</option>-->
+<!--    </select>-->
+<!--    <label for="groupName">Group Name:</label>-->
+
+<!--    <button type="submit">Search</button>-->
+<!--</form>-->
+
+
+
+<h1>Список users</h1>
+<form action="/users/add" method="post" th:object="${user}">
+    <input type="text" name="username" placeholder="User name" required>
+    <input type="text" name="password" placeholder="password" required>
+    <input type="checkbox" name="active" required> Exists
+    <select id="roles" name="roles" required>
+        <option value="">Select Role</option>
+        <option value="ADMIN">ADMIN</option>
+        <option value="USER">USER</option>
+        <option value="MANADGER">MANADGER</option>
+    </select>
+    <label for="user1">NumberPhone:</label>
+    <select id="user1" name="userProfile" required>
+        <option value="">Выберите номер телефона</option>
+        <option th:each="usersprofile : ${usersprofiles}"
+                th:value="${usersprofile.id }"
+                th:text="${usersprofile.phoneNumber}"></option>
+    </select>
+    <button type="submit">Создать user</button>
+</form>
+
+<h2>Все faculty:</h2>
+
+    <ul>
+        <th:block th:each="user : ${users}">
+            <li>
+                <span th:text="${user.username} + ' ' + ${user.active} + ' ' + ${(user.roles != null ? user.roles : 'No role')}"></span>
+<!--                <form action="/users/update" method="post" style="display:inline; " th:object="${user}">-->
+<!--                    <input type="hidden" name="id" th:value="${user.idUser}"/>-->
+<!--                    <input type="text" name="username" placeholder="User name" required>-->
+<!--                    <input type="text" name="password" placeholder="password" required>-->
+<!--                    <input type="checkbox" name="active" required> Exists-->
+<!--                    <button type="submit">Обновить</button>-->
+<!--                </form>-->
+                <form action="/users/update" method="post" th:object="${user}">
+                    <input type="hidden" name="idUser" th:value="${user.idUser }"/>
+                    <input type="text" th:field="*{username}" placeholder="User  name" required>
+                    <input type="text" th:field="*{password}" placeholder="password" required>
+                    <input type="checkbox" th:field="*{active}" > Exists
+                    <select id="roles1" name="roles" required>
+                        <option value="">Select Role</option>
+                        <option value="ADMIN">ADMIN</option>
+                        <option value="USER">USER</option>
+                        <option value="MANADGER">MANADGER</option>
+                    </select>
+                    <select id="user" name="userProfile" required>
+                        <option value="">Выберите номер телефона</option>
+                        <option th:each="usersprofile : ${usersprofiles}"
+                                th:value="${usersprofile.id }"
+                                th:text="${usersprofile.phoneNumber}"></option>
+                    </select>
+                    <button type="submit">Обновить</button>
+                </form>
+                <form action="/users/delete" method="post" style="display:inline;">
+                    <input type="hidden" name="id" th:value="${user.idUser}"/>
+                    <button type="submit">Удалить</button>
+                </form>
+                <input type="checkbox" name="studentIds" th:value="${user.idUser}">
+            </li>
+        </th:block>
+    </ul>
+<h1>Мультиудаление</h1>
+<!--<form action="/students/multidelete" method="post" style="margin-top: 20px">-->
+<!--    <ul>-->
+<!--        <th:block th:each="student : ${students}">-->
+<!--            <li>-->
+<!--                <span th:text="${student.id} + ' ' + ${student.name} + ' ' + ${student.secondname} + ' ' + ${student.groupName} + ' ' + ${student.faculty} + ' ' + ${student.course} + ' ' + ${student.exist} "></span>-->
+<!--                <input type="checkbox" name="studentIds" th:value="${student.id}">-->
+<!--            </li>-->
+<!--        </th:block>-->
+<!--    </ul>-->
+<!--    <input type="submit" name="deleteType" value="Delete Logical">Удалить логически-->
+<!--    <input type="submit" name="deleteType" value="Delete Physical">Удалить физически-->
+<!--</form>-->
+
+<!-- Pagination -->
+<!--<div>-->
+<!--    <ul>-->
+<!--        <li th:if="${currentPage > 1}">-->
+<!--            <a th:href="@{/students(page=${currentPage - 1})}">Previous</a>-->
+<!--        </li>-->
+<!--        <li th:each="i : ${#numbers.sequence(1, totalPages)}">-->
+<!--            <a th:href="@{/students(page=${i})}" th:class="${currentPage == i} ? 'active' : ''">-->
+<!--                [[${i}]]-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li th:if="${currentPage < totalPages}">-->
+<!--            <a th:href="@{/students(page=${currentPage + 1})}">Next</a>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</div>-->
+
+</body>
+</html>

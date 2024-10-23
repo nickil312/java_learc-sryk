@@ -14,6 +14,8 @@ public class ModelUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUser;
 
+    @NotBlank()
+    @Size(min = 2)
     private String username;
 
     @NotBlank()
@@ -26,6 +28,18 @@ public class ModelUser {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<RoleEnum> roles;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_profile_id")
+    private UserProfileModel userProfile;
+
+    public UserProfileModel getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfileModel userProfile) {
+        this.userProfile = userProfile;
+    }
 
     public ModelUser() {}
 
