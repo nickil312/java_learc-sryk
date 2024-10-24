@@ -9,4 +9,5 @@ public interface StudentProfileService {
     public StudentProfileModel createStudentProfile(StudentProfileModel student);
     public StudentProfileModel updateStudentProfile(StudentProfileModel student);
     public void deleteStudentProfile(Integer id);
+    public StudentProfileModel getStudentProfileById(Integer id);
 }

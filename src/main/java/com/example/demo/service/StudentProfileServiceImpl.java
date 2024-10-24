@@ -51,4 +51,9 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     public void deleteStudentProfile(Integer id) {
         studentProfileRepository.deleteById(id);
     }
+
+    @Override
+    public StudentProfileModel getStudentProfileById(Integer id) {
+        return studentProfileRepository.findById(id).orElse(null);
+    }
 }
