@@ -15,7 +15,7 @@ public class CourseNumberModel {
     private int id;
 
     @NotBlank(message = "Name is required")
-    @Size(max = 7, message = "Name must not exceed 100 characters")
+    @Size(max = 7, message = "Name must not exceed 7 characters")
     private String name; // Например, "2 курс"
 
     private boolean exist;
