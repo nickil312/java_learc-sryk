@@ -23,7 +23,7 @@ public class UserModelServiceImpl implements UserModelService {
 
     @Override
     public ModelUser getUserById(long id) {
-        return userModelRepository.getReferenceById(id);
+        return userModelRepository.findById(id).orElse(null);
     }
 
     @Override
