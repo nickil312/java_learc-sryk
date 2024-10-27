@@ -46,7 +46,11 @@ public class RegistrationController {
             user.setRoles(Collections.singleton(RoleEnum.ADMIN)); // Set role to ADMIN
             System.out.println("admin");
 
-        } else {
+        } else if ("man".equals(user.getUsername())) {
+            user.setRoles(Collections.singleton(RoleEnum.MANADGER)); // Set role to ADMIN
+            System.out.println("man");
+
+        } else{
             user.setRoles(Collections.singleton(RoleEnum.USER)); // Set role to USER
             System.out.println("user");
         }

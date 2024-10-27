@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -19,9 +22,19 @@ public class FacultyController {
     @Autowired
     private FacultyService facultyService;
 
-
+    //    @GetMapping("/faculty")
+//    public Mono<String> getFaculty(Model model) {
+//        WebClient webClient = WebClient.create("http://localhost:8080");
+//        return webClient.get()
+//                .uri("/v1/api/faculty")
+//                .retrieve()
+//                .bodyToMono(String.class)
+//                .doOnNext(response -> model.addAttribute("students", response))
+//                .then(Mono.just("faculty")); // Возвращаем "faculty" как результат
+//    }
     @GetMapping("/faculty")
     public String getStudents(Model model) {
+
         List<FacultyModel> students = facultyService.getFaculty();
         model.addAttribute("students", students);
 //        System.out.println("s : " + students);
@@ -38,6 +51,7 @@ public class FacultyController {
 //        studentService.addStudent(newsStudent);
         return "redirect:/faculty";
     }
+
     @PostMapping("/faculty/update")
     public String updateStudent(@ModelAttribute FacultyModel student, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
@@ -49,6 +63,7 @@ public class FacultyController {
         facultyService.updateFaculty(student);
         return "redirect:/faculty";
     }
+
     @PostMapping("/faculty/delete")
     public String deleteStudent(@RequestParam Integer id) {
         facultyService.deleteFaculty(id);

@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.session.HttpSessionEventPublisher
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher
+import org.springframework.web.client.RestTemplate
 
 @Configuration
 @EnableWebSecurity
@@ -33,7 +34,7 @@ open class SecurityConfig @Autowired constructor(
             override fun loadUserByUsername(username: String?): UserDetails {
                 val user: ModelUser = userRepository.findByUsername(username)
                     ?: throw UsernameNotFoundException("User not found")
-
+//                System.out.println("User not found")
                 return org.springframework.security.core.userdetails.User(
                     user.username,
                     user.password,
@@ -52,9 +53,22 @@ open class SecurityConfig @Autowired constructor(
         http.authorizeHttpRequests { authorize ->
             authorize
                 .requestMatchers("/regis", "/login").permitAll()
-                .requestMatchers( "/students").hasAnyAuthority("ADMIN")
+                .requestMatchers( "/students").hasAnyAuthority("MANADGER","ADMIN")
+                .requestMatchers( "/coursenumber").hasAnyAuthority("MANADGER","ADMIN")
+                .requestMatchers( "/schedule").hasAnyAuthority("MANADGER","ADMIN","USER")
+                .requestMatchers( "/schedule/add").hasAnyAuthority("MANADGER","ADMIN")
+                .requestMatchers( "/schedule/update").hasAnyAuthority("MANADGER","ADMIN")
+                .requestMatchers( "/schedule/delete").hasAnyAuthority("MANADGER","ADMIN")
+                .requestMatchers( "/course").hasAnyAuthority("MANADGER","ADMIN")
+                .requestMatchers( "/faculty").hasAnyAuthority("MANADGER","ADMIN")
+                .requestMatchers( "/users").hasAnyAuthority("MANADGER","ADMIN")
+                .requestMatchers( "/userprofile").hasAnyAuthority("MANADGER","ADMIN","USER")
+                .requestMatchers( "/userprofile/add").hasAnyAuthority("MANADGER","ADMIN")
+                .requestMatchers( "/userprofile/delete").hasAnyAuthority("MANADGER","ADMIN")
+                .requestMatchers( "/userprofile/update").hasAnyAuthority("MANADGER","ADMIN")
                 .requestMatchers("/v1/api/**").permitAll()
                 .requestMatchers("/v1/api/students/**").permitAll()
+                .requestMatchers("/v1/api/faculty/**").permitAll()
                 .anyRequest().authenticated()
         }
             .formLogin { form ->
@@ -96,7 +110,10 @@ open class SecurityConfig @Autowired constructor(
     open fun passwordEncoder(): PasswordEncoder {
         return BCryptPasswordEncoder(8)
     }
-
+//    @Bean
+//    open fun restTemplate(): RestTemplate {
+//        return RestTemplate()
+//    }
     @Bean
     open fun httpSessionEventPublisher(): HttpSessionEventPublisher {
         return HttpSessionEventPublisher()
